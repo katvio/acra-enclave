@@ -1,0 +1,16 @@
+version: v1
+name: "acra-enclave"
+target: "flentier/acra-enclave:latest"
+sources:
+  app: "flentier/acra-enclave-src:latest"
+defaults:
+  memory_mb: 2048  # Adjust this value based on your available memory
+egress:
+  allow:
+    - host  # e.g., db.yourdomain.com
+    - kms.*.amazonaws.com     # If using AWS KMS
+    - 169.254.169.254         # AWS instance metadata service
+ingress:
+  - listen_port: 9393  # AcraServer default port
+kms_proxy:
+  listen_port: 9999

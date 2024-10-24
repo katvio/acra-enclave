@@ -1,0 +1,18 @@
+version: 0.95.0
+
+encryptor_config_file: "/config/searchable.yaml"
+
+postgresql_enable: true
+db_host: postgresql
+db_port: 5432
+
+keystore:
+  type: kms_encrypted_master_key
+  kms_encrypted_master_key:
+    master_key_path: "/keys/encrypted_master_key"
+    kms_type: aws
+    aws:
+      key_id: "XXX"
+      region: "us-east-1"
+      endpoint: "http://localhost:9999"  # Enclaver KMS proxy endpoint
+      auth_type: default

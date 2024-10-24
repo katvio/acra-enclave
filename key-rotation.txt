@@ -1,0 +1,45 @@
+Key Rotation Process
+
+Generate a new KMS key in AWS.
+Decrypt the current Acra master key using the old KMS key.
+Re-encrypt the Acra master key with the new KMS key.
+Update the encrypted master key file in the Nitro Enclave.
+Update the KMS key ID in the Acra configuration.
+Restart the Acra server to use the new key.
+Validate that the system is working correctly with the new key.
+Schedule the old KMS key for deletion (with a suitable waiting period).
+
+Implementation Steps:
+
+Create an AWS Lambda function to perform the rotation:
+
+import boto3
+import base64
+
+def lambda_handler(event, context):
+    kms = boto3.client('kms')
+    s3 = boto3.client('s3')
+    
+    # Generate new KMS key
+    new_key = kms.create_key(Description='New Acra Master Key Encryption Key')
+    new_key_id = new_key['KeyMetadata']['KeyId']
+    
+    # Get the current encrypted master key
+    old_encrypted_key = s3.get_object(Bucket='your-bucket', Key='encrypted_master_key')['Body'].read()
+    
+    # Decrypt with old key
+    decrypted_key = kms.decrypt(CiphertextBlob=old_encrypted_key)['Plaintext']
+    
+    # Re-encrypt with new key
+    new_encrypted_key = kms.encrypt(KeyId=new_key_id, Plaintext=decrypted_key)['CiphertextBlob']
+    
+    # Store the new encrypted key
+    s3.put_object(Bucket='your-bucket', Key='new_encrypted_master_key', Body=new_encrypted_key)
+    
+    # Return the new key ID for updating configurations
+    return {'new_key_id': new_key_id}
+
+
+2. Update the Acra configuration (acra-server.yaml) with the new KMS key ID.
+3. Implement a process to securely transfer the new encrypted master key to the Nitro Enclave.
+4. Update your deployment process to use the new key and restart Acra.
