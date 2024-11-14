@@ -57,21 +57,15 @@ Isolated compute environments providing enhanced security beyond standard EC2 in
 ### 2. Enclaver Integration
 [Enclaver](https://edgebit.io/enclaver/docs/0.x/guide-app/) is a tool for streamlined application deployment in AWS Nitro Enclaves.
 
-**Features:**
-
-- 📦 Simplified application packaging and deployment
-- 🔍 Fine-grained communication control
-- 🚀 Reduced operational complexity
-
 ### 3. AWS KMS Integration
 AWS KMS handles Acra's master key encryption for enhanced key management security.
 
 **Advantages:**
 
-- 🗝️ Centralized key management system
-- 🔄 Automatic key rotation capabilities
-- 👥 Fine-grained access control
-- 📝 Comprehensive CloudTrail audit logging
+- Centralized key management system
+- Automatic key rotation capabilities
+- Fine-grained access control
+- Comprehensive CloudTrail audit logging
 
 ### 4. Basic Pyhton app + Postgres
 As a POC, we will use this basic demo [python + postgres app](https://github.com/cossacklabs/acra-engineering-demo/tree/master/python-searchable)
@@ -95,9 +89,9 @@ As a POC, we will use this basic demo [python + postgres app](https://github.com
 
 ### Data Protection Features
 
-- ⚡ Transparent encryption/decryption
-- 🔍 Searchable encryption capabilities
-- ⚠️ Poison record detection
+- Transparent encryption/decryption
+- Searchable encryption capabilities
+- Poison record detection
 
 ### EC2 Instance Security
 
@@ -217,9 +211,11 @@ Should be put in place:
 - [ ] Implement MPC (or some sort of decentrilzed KMS) for acra's master key?
 - [ ] High availability setup fo the acra server; multi regional etc.
 - [ ] Move the postgres instance elsewhere (e.g, managed instance on AWS or GCP)
-- [ ] Deploy all of the setup using IaC (Ansible or Terra)
+- [ ] Deploy all of the setup using IaC
 - [ ] Ensure TLS everywhere
 - [ ] Achitecture Diagram
+- [ ] performance benchmarks
+- [ ] Zero-Trust Architecture? (no implicit trust etc)
 
 ## Contributing
 
