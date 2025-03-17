@@ -6,6 +6,19 @@
 >While managed database services (RDS, CloudSQL, Aurora) offer encryption at rest, this only protects your data when it's stored on disk. Your data is still exposed in memory and decrypted at the database layer. This means your sensitive data could be vulnerable to memory dumps, compromised database users, or privileged access misuse.
 > This is where Acra comes in: true end-to-end encryption for your sensitive data, ensuring it remains encrypted until it reaches your application. By running Acra inside AWS Nitro Enclaves (that is the point of this repo) and integrating with AWS KMS, we create an unprecedented security fortress. Your encryption keys are protected by hardware-level isolation, your data is encrypted at the application layer, and the entire process is attested and auditable. It's one of the most secure ways to protect sensitive data today.
 
+## TODO list
+
+- [ ] Ensure Reproducible flow, and example of verifiable remote attestation.
+- [ ] Implement MPC (or some sort of decentrilzed KMS) for acra's master key?
+- [ ] High availability setup fo the acra server; multi regional etc.
+- [ ] Consider [enveloppe encryption](https://edgebit.io/enclaver/docs/0.x/guide-app/#envelope-encryption)?
+- [ ] Move the postgres instance elsewhere (e.g, managed instance on AWS or GCP)
+- [ ] Deploy all of the setup using IaC
+- [ ] Ensure TLS everywhere
+- [ ] Achitecture Diagram
+- [ ] performance benchmarks
+- [ ] Zero-Trust Architecture? (no implicit trust etc)
+
 ## Benefits & Motivations
 
 ### 🎯 Primary Motivation: Preventing Data Leakage
@@ -203,19 +216,6 @@ Should be put in place:
 5. Conduct regular security audits
 6. Document all configuration changes
 
-
-## TODO list
-
-- [ ] Ensure Reproducible flow, and example of verifiable remote attestation.
-- [ ] Copnsider [enveloppe encryption](https://edgebit.io/enclaver/docs/0.x/guide-app/#envelope-encryption)?
-- [ ] Implement MPC (or some sort of decentrilzed KMS) for acra's master key?
-- [ ] High availability setup fo the acra server; multi regional etc.
-- [ ] Move the postgres instance elsewhere (e.g, managed instance on AWS or GCP)
-- [ ] Deploy all of the setup using IaC
-- [ ] Ensure TLS everywhere
-- [ ] Achitecture Diagram
-- [ ] performance benchmarks
-- [ ] Zero-Trust Architecture? (no implicit trust etc)
 
 ## Contributing
 
